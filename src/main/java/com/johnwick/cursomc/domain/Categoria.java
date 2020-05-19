@@ -1,6 +1,8 @@
 package com.johnwick.cursomc.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -17,6 +19,7 @@ public class Categoria implements Serializable {
     @Column(name = "nome")
     private String nome;
 
+    @JsonManagedReference //lado que eu quero que venha as referencias
     @ManyToMany(mappedBy = "categorias")
     private List<Produto> produtos = new ArrayList<>();
 
