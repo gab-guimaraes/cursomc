@@ -3,6 +3,8 @@ package com.johnwick.cursomc.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Categoria implements Serializable {
@@ -14,6 +16,18 @@ public class Categoria implements Serializable {
 
     @Column(name = "nome")
     private String nome;
+
+    @ManyToMany(mappedBy = "categorias")
+    private List<Produto> produtos = new ArrayList<>();
+
+    public Categoria() {
+    }
+
+    public Categoria(Integer id, String nome) {
+        super();
+        this.id = id;
+        this.nome = nome;
+    }
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -33,6 +47,14 @@ public class Categoria implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public List<Produto> getProdutos() {
+        return produtos;
+    }
+
+    public void setProdutos(List<Produto> produtos) {
+        this.produtos = produtos;
     }
 
     @Override
