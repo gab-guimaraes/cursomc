@@ -1,10 +1,13 @@
 package com.johnwick.cursomc.service;
 import com.johnwick.cursomc.domain.Categoria;
 import com.johnwick.cursomc.repositories.CategoriaRepository;
+import com.johnwick.cursomc.service.exception.DataIntegrityException;
 import com.johnwick.cursomc.service.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,5 +30,20 @@ public class CategoriaService {
     public Categoria update(Categoria obj) {
         find(obj.getId());
         return repo.save(obj);
+    }
+
+    public void delete(Integer id) {
+        find(id);
+        try {
+            repo.deleteById(id);
+        } catch (DataIntegrityException e) {
+            throw new DataIntegrityViolationException(
+                    "Não é possível excluir uma categoria que possui produtos");
+
+        }
+    }
+
+    public List<Categoria> findAll() {
+        return repo.findAll();
     }
 }
