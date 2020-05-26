@@ -1,5 +1,6 @@
 package com.johnwick.cursomc.service;
 import com.johnwick.cursomc.domain.Categoria;
+import com.johnwick.cursomc.dto.CategoriaDTO;
 import com.johnwick.cursomc.repositories.CategoriaRepository;
 import com.johnwick.cursomc.service.exception.DataIntegrityException;
 import com.johnwick.cursomc.service.exception.ObjectNotFoundException;
@@ -44,6 +45,10 @@ public class CategoriaService {
                     "Não é possível excluir uma categoria que possui produtos");
 
         }
+    }
+
+    public Categoria fromDTO(CategoriaDTO objDto) {
+        return new Categoria(objDto.getId(), objDto.getNome());
     }
 
     public List<Categoria> findAll() {
