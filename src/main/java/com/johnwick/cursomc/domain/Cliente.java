@@ -1,8 +1,6 @@
 package com.johnwick.cursomc.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.johnwick.cursomc.domain.enums.TipoCliente;
 
 import javax.persistence.*;
@@ -39,7 +37,7 @@ public class Cliente implements Serializable {
         this.nome = nome;
         this.email = email;
         this.cpfOuCnpj = cpfOuCnpj;
-        this.tipo = tipo.getCod();
+        this.tipo = (tipo == null) ? null : tipo.getCod();
     }
 
     public List<Pedido> getPedidos() {
