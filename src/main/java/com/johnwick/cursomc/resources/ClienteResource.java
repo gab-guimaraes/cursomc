@@ -1,11 +1,8 @@
 package com.johnwick.cursomc.resources;
 
-import com.johnwick.cursomc.domain.Categoria;
-import com.johnwick.cursomc.domain.Cliente;
 import com.johnwick.cursomc.domain.Cliente;
 import com.johnwick.cursomc.dto.ClienteDTO;
 import com.johnwick.cursomc.dto.ClienteNewDTO;
-import com.johnwick.cursomc.service.ClienteService;
 import com.johnwick.cursomc.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
-import javax.websocket.ClientEndpoint;
 import java.net.URI;
 
 @RestController
@@ -59,7 +55,7 @@ public class ClienteResource {
 
 
         @RequestMapping(method =  RequestMethod.POST)
-        public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTO objDTO) {
+        public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTO objDTO) throws IllegalAccessException {
             Cliente obj = service.fromDTO(objDTO);
             obj = service.insert(obj);
             URI uri = ServletUriComponentsBuilder.fromCurrentRequest().

@@ -1,11 +1,13 @@
 package com.johnwick.cursomc.dto;
 
 import com.johnwick.cursomc.domain.Cliente;
+import com.johnwick.cursomc.service.validation.ClienteUpdate;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
+@ClienteUpdate
 public class ClienteDTO {
     private static final long serialVersionUID = 1L;
 
