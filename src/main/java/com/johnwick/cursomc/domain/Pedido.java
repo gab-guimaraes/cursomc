@@ -1,7 +1,6 @@
 package com.johnwick.cursomc.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -36,6 +35,15 @@ public class Pedido implements Serializable {
     private Set<ItemPedido> itens = new HashSet<>();
 
     public Pedido() {}
+
+    public double getValorTotal() {
+        double soma = 0.0;
+        for (ItemPedido ip : itens) {
+            soma = soma + ip.getSubTotal();
+        }
+        return soma;
+
+    }
 
     public Pedido(Integer id, Date instant, Cliente cliente, Endereco enderecoDeEntrega) {
         this.id = id;
