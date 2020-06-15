@@ -1,25 +1,16 @@
 package com.johnwick.cursomc.resources;
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.johnwick.cursomc.domain.Categoria;
 import com.johnwick.cursomc.dto.CategoriaDTO;
 import com.johnwick.cursomc.service.CategoriaService;
-import com.sun.javafx.scene.traversal.Direction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.validation.Valid;
-import javax.xml.ws.Response;
 import java.net.URI;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value="/categorias")
