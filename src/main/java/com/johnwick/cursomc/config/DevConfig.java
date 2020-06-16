@@ -23,6 +23,7 @@ public class DevConfig {
     public boolean instantiateDatanase() throws ParseException {
 
         if (!"create".equals(strategy)) {
+            System.out.println("entrei no if para nao criar");
             return false;
         }
         dbService.instantiateTestDataBase();
