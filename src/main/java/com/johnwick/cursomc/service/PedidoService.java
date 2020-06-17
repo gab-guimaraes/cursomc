@@ -4,9 +4,7 @@ import com.johnwick.cursomc.domain.ItemPedido;
 import com.johnwick.cursomc.domain.PagamentoComBoleto;
 import com.johnwick.cursomc.domain.Pedido;
 import com.johnwick.cursomc.domain.enums.EstadoPagamento;
-import com.johnwick.cursomc.repositories.ItemPedidoRepository;
-import com.johnwick.cursomc.repositories.PagamentoRepository;
-import com.johnwick.cursomc.repositories.PedidoRepository;
+import com.johnwick.cursomc.repositories.*;
 import com.johnwick.cursomc.service.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +29,12 @@ public class PedidoService {
     @Autowired
     private ProdutoService produtoService;
 
+    @Autowired
+    private ProdutoRepository produtoRepository;
+
+    @Autowired
+    private ClienteRepository clienteRepository;
+
     public Pedido find(Integer id) {
         Optional<Pedido> obj = repo.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException(
@@ -39,21 +43,24 @@ public class PedidoService {
 
     public Pedido insert(Pedido obj) {
         obj.setId(null);
-        obj.setInstant(new Date());
+        obj.setInstante(new Date());
         obj.getPagamento().setEstado(EstadoPagamento.PENDENTE);
+        obj.setCliente(clienteRepository.getOne(obj.getCliente().getId()));
         obj.getPagamento().setPedido(obj);
         if (obj.getPagamento() instanceof PagamentoComBoleto) {
             PagamentoComBoleto pagto = (PagamentoComBoleto) obj.getPagamento();
-            boletoService.preencherPagamentoComBoleto(pagto, obj.getInstant());
+            boletoService.preencherPagamentoComBoleto(pagto, obj.getInstante());
         }
         obj = repo.save(obj);
         pagamentoRepository.save(obj.getPagamento());
         for (ItemPedido ip : obj.getItens()) {
             ip.setDesconto(0.0);
+            ip.setProduto(produtoRepository.getOne(ip.getProduto().getId()));
             ip.setPreco(produtoService.find(ip.getProduto().getId()).getPreco());
             ip.setPedido(obj);
         }
         itemPedidoRepository.saveAll(obj.getItens());
+        System.out.println(obj);
         return obj;
     }
 }

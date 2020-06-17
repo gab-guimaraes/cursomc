@@ -20,14 +20,13 @@ public class DevConfig {
     private String strategy;
 
     @Bean
-    public boolean instantiateDatanase() throws ParseException {
+    public boolean instantiateDatabase() throws ParseException {
 
         if (!"create".equals(strategy)) {
-            System.out.println("entrei no if para nao criar");
             return false;
         }
+
         dbService.instantiateTestDataBase();
         return true;
     }
-
 }
