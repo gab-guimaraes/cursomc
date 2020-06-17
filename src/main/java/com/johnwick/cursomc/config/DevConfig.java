@@ -1,6 +1,8 @@
 package com.johnwick.cursomc.config;
 
 import com.johnwick.cursomc.service.DBService;
+import com.johnwick.cursomc.service.EmailService;
+import com.johnwick.cursomc.service.SmtpEmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -10,7 +12,7 @@ import org.springframework.context.annotation.Profile;
 import java.text.ParseException;
 
 @Configuration
-@Profile("test")
+@Profile("dev")
 public class DevConfig {
 
     @Autowired
@@ -28,5 +30,10 @@ public class DevConfig {
 
         dbService.instantiateTestDataBase();
         return true;
+    }
+
+    @Bean
+    public EmailService emailService() {
+        return new SmtpEmailService();
     }
 }
