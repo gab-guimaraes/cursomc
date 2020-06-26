@@ -2,6 +2,7 @@ package com.johnwick.cursomc.service;
 
 import com.johnwick.cursomc.domain.*;
 import com.johnwick.cursomc.domain.enums.EstadoPagamento;
+import com.johnwick.cursomc.domain.enums.Perfil;
 import com.johnwick.cursomc.domain.enums.TipoCliente;
 import com.johnwick.cursomc.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -102,11 +103,18 @@ public class DBService {
 
         Cliente cli1 = new Cliente(null,"Maria Silva", "dedito182@gmail.com", "12345678998", TipoCliente.PESSOAFISICA, pe.encode("123"));
         cli1.getTelefones().addAll(Arrays.asList("9893874", "12821737"));
+
         Endereco e1 = new Endereco(null, "Rua Flores", "238","Jardimm","SP","213123", cli1,c1);
         Endereco e2 = new Endereco(null, "Rua Esmeralda", "238","Jardimm","SP","213123", cli1,c2);
         cli1.getEnderecos().addAll(Arrays.asList(e1,e2));
 
-        Cliente cli2 = new Cliente(null,"Ronaldinho Gaucho", "oi@gmail.com", "12345678998", TipoCliente.PESSOAFISICA, pe.encode("123"));
+        Cliente cli2 = new Cliente(null,"Ronaldinho Gaucho", "oi@gmail.com", "32165498765", TipoCliente.PESSOAFISICA, pe.encode("123"));
+        cli2.addPerfil(Perfil.ADMIN);
+
+        cli2.getTelefones().addAll(Arrays.asList("9893874", "12821737"));
+
+        Endereco e3 = new Endereco(null, "Rua Esmeralda", "238","Jardimm","SP","213123", cli2,c2);
+        cli2.getEnderecos().addAll(Arrays.asList(e1,e2));
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         Pedido ped1 = new Pedido(null, sdf.parse("30/09/2017 10:32"),cli1,e1);
@@ -136,7 +144,7 @@ public class DBService {
         estadoRepository.saveAll(Arrays.asList(est1,est2));
         cidadeRepository.saveAll(Arrays.asList(c1,c2,c3));
         clienteRepository.saveAll(Arrays.asList(cli1,cli2));
-        enderecoRepository.saveAll(Arrays.asList(e1,e2));
+        enderecoRepository.saveAll(Arrays.asList(e1,e2, e3));
         pedidoRepository.saveAll(Arrays.asList(ped1,ped2));
         pagamentoRepository.saveAll(Arrays.asList(pagto1,pagto2));
         itemPedidoRepository.saveAll(Arrays.asList(ip1,ip2,ip3));
