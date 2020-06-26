@@ -21,6 +21,9 @@ public class ClienteDTO {
     @Email(message = "email invalido")
     private String email;
 
+    @NotEmpty
+    private String senha;
+
     public ClienteDTO() {}
 
     public ClienteDTO(Cliente obj) {
@@ -50,5 +53,12 @@ public class ClienteDTO {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 }

@@ -28,6 +28,17 @@ public class  ClienteNewDTO implements Serializable {
     private String complemento;
     private String bairro;
 
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    @NotEmpty
+    private String senha;
+
     @NotEmpty(message = "Preenchimento obrigatório")
     private String cep;
 

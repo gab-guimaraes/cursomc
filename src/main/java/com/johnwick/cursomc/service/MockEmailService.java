@@ -1,5 +1,6 @@
 package com.johnwick.cursomc.service;
 
+import com.johnwick.cursomc.domain.Pedido;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.mail.SimpleMailMessage;
@@ -14,4 +15,5 @@ public class MockEmailService extends AbstractEmailService {
         LOG.info("Email enviado");
 
     }
+
 }
